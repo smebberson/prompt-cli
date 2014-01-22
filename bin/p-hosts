@@ -6,7 +6,8 @@ program
 	.version('0.0.1');
 
 program
-	.command('list', 'list all hosts');
+	.command('list', 'list all hosts')
+	.command('add', 'add a new host');
 
 program.parse(process.argv);
 

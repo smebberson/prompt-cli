@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+"use strict";
+
 var program = require('commander'),
 	os = require('os'),
 	fs = require('fs'),
@@ -23,17 +25,11 @@ if (program.hosts === undefined) {
 // load the file and output all of the entries
 hosts.get(program.hosts, function (err, hostRecords) {
 
-	for (var i = 0; i < hostRecords.length; i++) {
-
-		if (hostRecords[i].type === 'entry') {
-			console.log(chalk.cyan.bold(pad(hostRecords[i].ip, 20)) + chalk.blue(hostRecords[i].domain));
-
-		}
-
-		if (program.all && hostRecords[i].type === 'other') {
-			console.log(chalk.gray(hostRecords[i].content));
-		}
-
+	if (err) {
+		return console.log('There was an error loading the hosts records.\n' + err);
 	}
+
+	// output the list of the host records
+	hosts.print(hostRecords, program.all);
 
 });

@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+
+"use strict";
+
+var program = require('commander'),
+	os = require('os'),
+	fs = require('fs'),
+	pad = require('pad'),
+	chalk = require('chalk'),
+	hosts = require('../lib/hosts');
+
+program
+	.version('0.0.1')
+	.option('-f, --file [location]', 'Hosts file location')
+	.option('-i, --ip [ip]', 'The ip for the entry', '127.0.0.1')
+	.option('-h, --host [host]', 'The domain for the entry')
+	.option('-c, --comment [comment]', 'An optional comment for the entry')
+	.parse(process.argv);
+
+// determine location
+if (program.file === undefined) {
+
+	if (os.platform() === 'darwin') {
+		program.file = '/etc/hosts';
+	}
+}
+
+// check for CLI options that we require
+if (!program.host) {
+	console.error(chalk.red('\nA host was not provided.'));
+	program.help();
+}
+
+// create a new host entry given the details provided
+hosts.set(program.file, program.ip, program.host, program.comment, function (err, hostRecords) {
+
+	if (err) {
+		return console.log('There was an error reading and setting a new hosts file.\n' + err);
+	}
+
+	// write the new JSON tree to the hosts file
+	hosts.write(program.file, hostRecords, function (err) {
+
+		if (err) {
+			console.log('There was an error when writing the file.\n' + err);
+			return process.exit(1);
+		}
+
+		// output the JSON tree
+		hosts.print(hostRecords);
+
+	});
+
+});
