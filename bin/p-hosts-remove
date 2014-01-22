@@ -12,9 +12,8 @@ var program = require('commander'),
 program
 	.version('0.0.1')
 	.option('-f, --file [location]', 'Hosts file location')
-	.option('-i, --ip [ip]', 'The ip for the entry', '127.0.0.1')
+	.option('-i, --ip [ip]', 'The ip for the entry')
 	.option('-h, --host [host]', 'The domain for the entry')
-	.option('-c, --comment [comment]', 'An optional comment for the entry')
 	.parse(process.argv);
 
 // determine location
@@ -26,16 +25,20 @@ if (program.file === undefined) {
 }
 
 // check for CLI options that we require
+if (!program.ip) {
+	console.error(chalk.red('\nAn ip was not provided.'));
+}
+
 if (!program.host) {
 	console.error(chalk.red('\nA host was not provided.'));
 	program.help();
 }
 
 // create a new host entry given the details provided
-hosts.set(program.file, program.ip, program.host, program.comment, function (err, hostRecords) {
+hosts.remove(program.file, program.ip, program.host, function (err, hostRecords) {
 
 	if (err) {
-		return console.log('There was an error reading and setting a new hosts file.\n' + err);
+		return console.log('There was an error reading and removing a hosts entry.\n' + err);
 	}
 
 	// write the new JSON tree to the hosts file
