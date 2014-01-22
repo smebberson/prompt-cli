@@ -1,11 +1,13 @@
 {
   "name": "prompt-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A command line interface for doing useful things for web developers.",
   "bin": {
     "p": "./bin/p",
     "p-hosts": "./bin/p-hosts",
-    "p-hosts-list": "./bin/p-hosts-list"
+    "p-hosts-list": "./bin/p-hosts-list",
+    "p-hosts-add": "./bin/p-hosts-add",
+    "p-hosts-remove": "./bin/p-hosts-remove"
   },
   "repository": {
     "type": "git",
