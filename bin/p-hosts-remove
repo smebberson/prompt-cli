@@ -10,7 +10,6 @@ var program = require('commander'),
 	hosts = require('../lib/hosts');
 
 program
-	.version('0.0.1')
 	.option('-f, --file [location]', 'Hosts file location')
 	.option('-i, --ip [ip]', 'The ip for the entry')
 	.option('-h, --host [host]', 'The domain for the entry')
