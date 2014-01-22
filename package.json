@@ -1,0 +1,36 @@
+{
+  "name": "prompt-cli",
+  "version": "0.0.1",
+  "description": "A command line interface for doing useful things for web developers.",
+  "bin": {
+    "p": "./bin/p",
+    "p-hosts": "./bin/p-hosts",
+    "p-hosts-list": "./bin/p-hosts-list"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smebberson/prompt-cli.git"
+  },
+  "keywords": [
+    "cli",
+    "deployment",
+    "web",
+    "developer",
+    "buildtool"
+  ],
+  "author": "Scott Mebberson",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "5e6a0da58f800f65de64c0634b91bd8c8953f14e",
+  "bugs": {
+    "url": "https://github.com/smebberson/prompt-cli/issues"
+  },
+  "dependencies": {
+    "commander": "~2.1.0",
+    "split": "~0.2.10",
+    "through": "~2.3.4",
+    "event-stream": "~3.1.0",
+    "pad": "0.0.4",
+    "chalk": "~0.4.0"
+  }
+}

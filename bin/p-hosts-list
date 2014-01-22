@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+
+var program = require('commander'),
+	os = require('os'),
+	fs = require('fs'),
+	pad = require('pad'),
+	chalk = require('chalk'),
+	hosts = require('../lib/hosts');
+
+program
+	.option('-h, --hosts [location]', 'Hosts file')
+	.option('-a, --all', 'Show all lines in the hosts file, not just valid entries')
+	.parse(process.argv);
+
+// determine location
+if (program.hosts === undefined) {
+
+	if (os.platform() === 'darwin') {
+		program.hosts = '/etc/hosts';
+	}
+}
+
+// load the file and output all of the entries
+hosts.get(program.hosts, function (err, hostRecords) {
+
+	for (var i = 0; i < hostRecords.length; i++) {
+
+		if (hostRecords[i].type === 'entry') {
+			console.log(chalk.cyan.bold(pad(hostRecords[i].ip, 20)) + chalk.blue(hostRecords[i].domain));
+
+		}
+
+		if (program.all && hostRecords[i].type === 'other') {
+			console.log(chalk.gray(hostRecords[i].content));
+		}
+
+	}
+
+});

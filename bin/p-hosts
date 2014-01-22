@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+
+program
+	.version('0.0.1');
+
+program
+	.command('list', 'list all hosts');
+
+program.parse(process.argv);
+
+if (!program.runningCommand) {
+	program.help();
+}
