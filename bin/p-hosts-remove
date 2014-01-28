@@ -30,7 +30,11 @@ if (!program.ip) {
 
 if (!program.host) {
 	console.error(chalk.red('\nA host was not provided.'));
+}
+
+if (!program.host || !program.ip) {
 	program.help();
+	process.exit(1);
 }
 
 // create a new host entry given the details provided
