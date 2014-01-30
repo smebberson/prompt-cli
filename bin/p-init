@@ -1,0 +1,71 @@
+#!/usr/bin/env node
+
+var path = require('path'),
+	program = require('commander'),
+	chalk = require('chalk'),
+	init = require('../lib/init');
+
+program.parse(process.argv);
+
+if (program.args.length > 0 && program.args.length < 2) {
+	console.error(chalk.red('\nYou must supply both the remote repository url, and the path to a folder to create.'));
+	return program.help();
+} else if (program.args.length < 2) {
+	return program.help();
+}
+
+// let's parse the url
+var url;
+
+init.parseURL(program.args[0], function (err, parsedURL) {
+	
+	if (err) {
+		console.error(chalk.red('\n' + err));
+		return program.help();
+	}
+
+	url = parsedURL;
+
+});
+
+// let's parse the local folder
+var folder;
+
+init.parseFolder(program.args[1], function (err, parsedFolder) {
+
+	if (err) {
+		console.error(chalk.red('\n' + err));
+		return program.help();
+	}
+
+	folder = parsedFolder;
+
+});
+
+
+// now that we have everything we need, let's:
+// 1. clone the directory
+// 2. remove the .git folder
+
+console.log('\n' + chalk.cyan('Cloning \'%s\' into \'%s\'...'), url, folder);
+
+// 1. clone the directory
+init.clone(url, folder, function (err, location) {
+
+	if (err) {
+		return console.error(chalk.red('\n' + err));
+	}
+
+	// 2. degit baby
+	init.degit(path.join(folder, '.git'), function (err) {
+
+		if (err) {
+			return console.error(chalk.red('\n' + err));
+		}
+
+		// we're all done
+		return console.log(chalk.green('All done.\n'));
+
+	});
+
+});

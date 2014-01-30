@@ -8,6 +8,9 @@ program
 program
 	.command('hosts', 'add, remove and edit hosts');
 
+program
+	.command('init <url> <path>', 'Create a new folder at path with the contents of the repository at url.');
+
 program.parse(process.argv);
 
 if (!program.runningCommand) {

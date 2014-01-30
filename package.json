@@ -7,7 +7,8 @@
     "p-hosts": "./bin/p-hosts",
     "p-hosts-list": "./bin/p-hosts-list",
     "p-hosts-add": "./bin/p-hosts-add",
-    "p-hosts-remove": "./bin/p-hosts-remove"
+    "p-hosts-remove": "./bin/p-hosts-remove",
+    "p-init": "./bin/p-init"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "through": "~2.3.4",
     "event-stream": "~3.1.0",
     "pad": "0.0.4",
-    "chalk": "~0.4.0"
+    "chalk": "~0.4.0",
+    "rimraf": "~2.2.6"
   }
 }
