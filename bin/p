@@ -1,18 +1,36 @@
 #!/usr/bin/env node
 
-var program = require('commander');
+var commandant = require('commandant'),
+	program = commandant('p'),
+	commands = require('../commands');
 
 program
-	.version('0.1.0');
+	.desc('A suite of commandline tools for developers.');
 
 program
-	.command('hosts', 'add, remove and edit hosts');
+	.command('hosts')
+	.argument('add', 'add a new hosts record')
+	.argument('<host>', 'the host to add')
+	.argument('<ip?>', 'ip of the host', '127.0.0.1')
+	.option('-c, --comment', 'An optional comment for the entry')
+	.desc('Add a new host record.')
+	.action(commands.hosts.add);
 
 program
-	.command('init <url> <path>', 'Create a new folder at path with the contents of the repository at url.');
+	.command('hosts')
+	.argument('remove')
+	.argument('<host>')
+	.argument('<ip>')
+	.desc('Remove a host record.')
+	.action(commands.hosts.remove);
 
-program.parse(process.argv);
+program
+	.command('hosts')
+	.argument('list')
+	.desc('List all host records.')
+	.option('-h, --hosts [location]', 'Hosts file')
+	.option('-a, --all', 'Show all lines in the hosts file, not just valid entries')
+	.action(commands.hosts.list);
 
-if (!program.runningCommand) {
-	program.help();
-}
+// parse process.argv by default
+program.parse();
