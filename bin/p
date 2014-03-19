@@ -7,11 +7,14 @@ var commandant = require('commandant'),
 program
 	.desc('A suite of commandline tools for developers.');
 
+/**
+ * A command to add, edit and list hosts records
+ */
 program
 	.command('hosts')
 	.argument('add', 'add a new hosts record')
 	.argument('<host>', 'the host to add')
-	.argument('<ip?>', 'ip of the host', '127.0.0.1')
+	.argument('<ip?>', 'ip of the host to add', '127.0.0.1')
 	.option('-c, --comment', 'An optional comment for the entry')
 	.desc('Add a new host record.')
 	.action(commands.hosts.add);
@@ -19,8 +22,8 @@ program
 program
 	.command('hosts')
 	.argument('remove')
-	.argument('<host>')
-	.argument('<ip>')
+	.argument('<host>', 'the host to remove')
+	.argument('<ip>', 'the ip of the host to remove')
 	.desc('Remove a host record.')
 	.action(commands.hosts.remove);
 
@@ -31,6 +34,16 @@ program
 	.option('-h, --hosts [location]', 'Hosts file')
 	.option('-a, --all', 'Show all lines in the hosts file, not just valid entries')
 	.action(commands.hosts.list);
+
+/**
+ * A command to clone a remote git repository, and then de-git it
+ */
+program
+	.command('init')
+	.argument('<url>', 'A url to a git repository')
+	.argument('<path>', 'A local path to place the repository content')
+	.desc('Clone a remote git repository, and then de-git it.')
+	.action(commands.init);
 
 // parse process.argv by default
 program.parse();

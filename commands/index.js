@@ -1,2 +1,3 @@
 
-exports.hosts = require('./hosts')
+exports.hosts = require('./hosts');
+exports.init = require('./init')
