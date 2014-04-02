@@ -33,6 +33,7 @@
     "pad": "0.0.4",
     "chalk": "~0.4.0",
     "rimraf": "~2.2.6",
-    "commandant": "0.0.2"
+    "commandant": "0.0.2",
+    "async": "~0.6.2"
   }
 }
